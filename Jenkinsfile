@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Constrói a imagem docker utilizando o Dockerfile especificado
-                    dockerapp = docker.build("mateusassis02/guia-pratico-jenkins:${env.BUILD_ID}", '-f ./src/Dockerfile') 
+                    dockerapp = docker.build("mateusassis02/guia-pratico-jenkins:${env.BUILD_ID}", '-f ./src/Dockerfile')
                 }
             }
         }
@@ -26,9 +26,10 @@ pipeline {
         stage('Deploy no Kubernetes') {
             steps {
                 // Executa comandos de deploy usando kubectl
-                sh 'echo "Executando o comando Kubectl apply"'
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                    sh 'kubectl apply -f k8s/deployment.yaml'
+                }
             }
         }
     }
 }
-
