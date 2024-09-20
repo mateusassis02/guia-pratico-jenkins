@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: conversao-temperatura
-        image: fabricioveronez/guia-pratico
+        image: fabricioveronez/guia-jenkins
         ports:
         - containerPort: 8080
 ---
